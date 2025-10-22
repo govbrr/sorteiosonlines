@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parabéns — Você foi contemplado!</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--muted:#94a3b8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#071123 0%, #071826 60%);color:#e6eef8;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+    .container{max-width:920px;width:100%;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 400px;gap:22px;align-items:center}
+    .hero{padding:12px}
+    h1{margin:0;font-size:30px;line-height:1.05;letter-spacing:-0.4px}
+    p.lead{color:var(--muted);margin-top:8px}
+    .badge{display:inline-block;background:linear-gradient(90deg,var(--accent),#06b6d4);padding:6px 10px;border-radius:999px;font-weight:600;color:white;font-size:13px}
+    .box{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .cta{margin-top:20px}
+    .btn{background:linear-gradient(90deg,var(--accent),#06b6d4);padding:12px 16px;border-radius:10px;border:none;color:#021124;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 20px rgba(124,58,237,0.18)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbeafe}
+    .right{display:flex;flex-direction:column;gap:14px}
+    .prize{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+    .prize h2{margin:8px 0 0;font-size:22px}
+    .prize .amount{font-size:28px;font-weight:800;margin-top:6px}
+    .confetti{position:absolute;inset:0;pointer-events:none}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:24px}
+    .modal{background:linear-gradient(180deg,#071827,#061226);padding:20px;border-radius:12px;max-width:520px;width:100%;border:1px solid rgba(255,255,255,0.04)}
+    .field{display:flex;flex-direction:column;margin-top:12px}
+    label{font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=text]{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:8px;color:#e6eef8}
+    .row{display:flex;gap:8px;margin-top:12px}
+    .copy{flex:1;display:flex;gap:8px}
+    .note{font-size:13px;color:var(--muted);margin-top:10px}
+    footer{margin-top:12px;font-size:13px;color:var(--muted);text-align:center}
+    @media (max-width:880px){.container{grid-template-columns:1fr;}
+      .right{order:-1}}
+
+    /* simple confetti animation */
+    .confetti-piece{position:absolute;width:10px;height:16px;opacity:0;transform:translateY(-20px);animation:fall 2.6s linear infinite}
+    @keyframes fall{0%{opacity:1;transform:translateY(-40vh) rotate(0deg)}100%{opacity:1;transform:translateY(90vh) rotate(720deg)}}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <div class="hero">
+      <span class="badge">Sorteio Oficial</span>
+      <h1>Parabéns — você foi contemplado!</h1>
+      <p class="lead">Somos muito felizes em anunciar que sua participação foi a vencedora. Para receber o prêmio, clique no botão abaixo e insira a chave PIX que será disponibilizada pelo organizador.</p>
+
+      <div class="box">
+        <strong>O que você precisa fazer</strong>
+        <ol style="margin-top:10px;color:var(--muted)">
+          <li>Clique em <strong>Resgatar prêmio</strong>.</li>
+          <li>Insira a chave PIX que aparecerá (o organizador deve inserir a chave no painel).</li>
+          <li>Clique em <strong>Copiar chave</strong> para usar no seu app bancário.</li>
+        </ol>
+        <div class="cta">
+          <button class="btn" id="open-rescue">Resgatar prêmio</button>
+          <button class="btn secondary" id="ver-regras">Ver regras</button>
+        </div>
+      </div>
+
+      <footer>Se for necessário, entre em contato com o organizador do sorteio.</footer>
+    </div>
+
+    <div class="right">
+      <div class="prize box">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><circle cx='48' cy='48' r='44' fill='%237c3aed'/><text x='50%' y='55%' font-size='26' fill='white' font-family='Arial' text-anchor='middle' dominant-baseline='middle'>🎉</text></svg>" alt="troféu" style="width:92px;height:92px;border-radius:12px;"/>
+        <h2>Você ganhou!</h2>
+        <div class="amount">Prêmio: Surpresa 🎁</div>
+      </div>
+
+      <div class="box" style="text-align:center">
+        <strong>Segurança</strong>
+        <p style="color:var(--muted);margin-top:8px">RESGATE SEU PREMIO.</p>
+        <div style="margin-top:12px"><button class="btn secondary" id="baixar">Salvar esta página</button></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- modal -->
+  <div class="modal-backdrop" id="backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Resgatar prêmio</h3>
+      <p class="note">A chave PIX será exibida aqui — o organizador deve inseri-la no código da página ou através do painel de administração.</p>
+
+      <div class="field">
+        <label>Chave PIX</label>
+        <div class="row">
+          <input type="text" id="pixField" readonly aria-label="Chave PIX" />
+          <div style="display:flex;gap:8px">
+            <button class="btn" id="copyBtn">Copiar chave</button>
+            <button class="btn secondary" id="closeBtn">Fechar</button>
+          </div>
+        </div>
+      </div>
+      <p class="note">Ao clicar em copiar, a chave será copiada para a área de transferência. Use em seu app bancário para receber o valor.</p>
+    </div>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    const PIX_KEY = '11980914859';
+
+    const openBtn = document.getElementById('open-rescue');
+    const backdrop = document.getElementById('backdrop');
+    const pixField = document.getElementById('pixField');
+    const copyBtn = document.getElementById('copyBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const baixarBtn = document.getElementById('baixar');
+    const verRegras = document.getElementById('ver-regras');
+
+    function showModal(){
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+      pixField.value = PIX_KEY || 'A chave ainda não foi inserida pelo organizador.';
+    }
+    function hideModal(){
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+
+    openBtn.addEventListener('click', ()=>{
+      showModal();
+      launchConfetti();
+    });
+    closeBtn.addEventListener('click', hideModal);
+    backdrop.addEventListener('click', (e)=>{ if(e.target===backdrop) hideModal(); });
+
+    copyBtn.addEventListener('click', async ()=>{
+      if(!PIX_KEY){
+        alert('A chave PIX ainda não foi inserida pelo organizador.');
+        return;
+      }
+      try{
+        await navigator.clipboard.writeText(PIX_KEY);
+        copyBtn.textContent = 'Copiado!';
+        setTimeout(()=>copyBtn.textContent = 'Copiar chave',1500);
+      }catch(err){
+        alert('Não foi possível copiar automaticamente. Selecione e copie manualmente.');
+      }
+    });
+
+    verRegras.addEventListener('click', ()=>{
+      alert('Regras: Este é o site oficial do sorteio. Consulte o organizador para dúvidas.');
+    });
+
+    baixarBtn.addEventListener('click', ()=>{
+      const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'parabens-sorteio.html';
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    function launchConfetti(){
+      const wrap = document.getElementById('confetti');
+      wrap.innerHTML = '';
+      const colors = ['#7c3aed','#06b6d4','#f97316','#f43f5e','#fde68a'];
+      for(let i=0;i<30;i++){
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = (Math.random()*100)+'%';
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.animationDelay = (Math.random()*0.3)+'s';
+        el.style.transform = `translateY(-40vh) rotate(${Math.random()*360}deg)`;
+        el.style.width = Math.floor(Math.random()*10+6)+'px';
+        el.style.height = Math.floor(Math.random()*14+8)+'px';
+        wrap.appendChild(el);
+      }
+      setTimeout(()=>wrap.innerHTML='','2600');
+    }
+
+  </script>
+</body>
+</html>
